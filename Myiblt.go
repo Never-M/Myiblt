@@ -2,21 +2,23 @@ package myiblt
 
 import (
 	"errors"
-	"fmt"
 )
 
+// Cell structure
 type Cell struct {
 	Count   int
 	Key_sum int
 	Val_sum int
 }
 
+// Table structure
 type Table struct {
 	Cell_len int
 	Hash_len int
 	Arr      []Cell
 }
 
+// Create a Table
 func Create(cellLen int, hashLen int) *Table {
 	table := new(Table)
 	table.Cell_len = cellLen
@@ -80,9 +82,8 @@ func (t *Table) get(key int) (int, error) {
 		} else if t.Arr[idxs[i]].Count == 1 {
 			if t.Arr[idxs[i]].Key_sum == key {
 				return t.Arr[idxs[i]].Val_sum, nil
-			} else {
-				return 0, errors.New("The key " + string(key) + "doesn't exist!")
 			}
+			return 0, errors.New("The key " + string(key) + "doesn't exist!")
 		}
 	}
 	return 0, errors.New("Not sure whether the key (" + string(key) + ") exist or not.")
@@ -108,7 +109,6 @@ func (t *Table) listentry() ([][]int, error) {
 			break
 		}
 	}
-	fmt.Println(count0)
 	if count0 == t.Cell_len {
 		return res, nil
 	}
